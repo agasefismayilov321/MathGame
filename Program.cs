@@ -31,9 +31,12 @@ class Program
                     OyunOyna("bolme");
                     break;
                 case "5":
-                    ShowHistory();
+                    OyunOyna(randomOyun());
                     break;
                 case "6":
+                    ShowHistory();
+                    break;
+                case "7":
                     isRunning = 0;
                     break;
                 
@@ -54,6 +57,7 @@ class Program
         gameResults.Add(MyGames);
 
         Console.WriteLine("Oyun bitdi!");
+        Console.WriteLine($"Oyuna serf olunan zaman: {MyGames.timeSpent} saniye");
         Console.WriteLine($"Score: {MyGames.score}/{MyGames.totalQuestion}");
         Console.WriteLine("Menyuya daxil olmaq üçün istənilən şrifte basın...");
         Console.ReadKey();
@@ -68,8 +72,9 @@ class Program
         2 - Çıxma Əməliyyatı
         3 - Vurma Əməliyyatı
         4 - Bölmə Əməliyyatı
-        5 - Oyunların Siyahısı
-        6 - Oyundan Çıxmaq
+        5 - Random Əməliyyat seçmək
+        6 - Oyunların Siyahısı
+        7 - Oyundan Çıxmaq
         Oynamaq istediyinz emeliyyatı seçin: ");
     }
 
@@ -88,11 +93,20 @@ class Program
             foreach (var item in gameResults)
             {
                 Console.WriteLine($"{item.gameTime} - {item.operation} | Score: {item.score}/{item.totalQuestion}");
+                Console.WriteLine($"Oyuna serf olunan zaman: {item.timeSpent} saniye\n");
             }
         }
 
         Console.WriteLine("Menyuya daxil olmaq üçün istənilən şrifte basın...");
         Console.ReadKey();
 
+    }
+
+    static string randomOyun()
+    {
+        Random randomIndex = new Random();
+        string[] oyunlar = ["toplama","cixma","vurma","bolme"];
+
+        return  oyunlar[randomIndex.Next(oyunlar.Length)];
     }
 }

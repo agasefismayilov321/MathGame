@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,6 +12,7 @@ namespace MathGame
         private int _score;
         private int _totalQuestions = 5;
         private Random _random = new Random();
+        private Stopwatch _time = new Stopwatch();
 
         public Game(string operation)
         {
@@ -19,17 +21,22 @@ namespace MathGame
 
         public GameResult PlayGame()
         {
+            _time.Start();
+
             for(int i=1; i <= _totalQuestions; i++)
             {
                 AskQuestion();
             }
+
+            _time.Stop();
 
             return new GameResult
             {
                 gameTime = DateTime.Now,
                 score = _score,
                 operation = _operation,
-                totalQuestion = _totalQuestions
+                totalQuestion = _totalQuestions,
+                timeSpent = _time.Elapsed.TotalSeconds
             };
         }
 
